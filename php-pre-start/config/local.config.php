@@ -41,7 +41,7 @@ return [
                 'port' => 25, 
             ],
          ],
-    ]
+    ],
 
 
 
@@ -51,7 +51,7 @@ return [
             'base_path' => null, // Or the full path on the server if needed.
             'base_uri' => 'https://reisnerbarkal.kelsey.lsa.umich.edu/files',
         ],
-    ],
+    ]
 
     
 ];    

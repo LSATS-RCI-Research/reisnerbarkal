@@ -43,3 +43,12 @@ return [
          ],
     ]
 ];
+
+
+
+    'file_store' => [
+        'local' => [
+            'base_path' => null, // Or the full path on the server if needed.
+            'base_uri' => 'https://reisnerbarkal.kelsey.lsa.umich.edu/files',
+        ],
+    ],

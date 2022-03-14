@@ -10,4 +10,4 @@ mv -v $MOD_ROOT/config/local.config.php $APP_ROOT/config/local.config.php
 
 # installation of poppler utils for Extract OCR motule. See https://omeka.org/s/modules/ExtractOcr/ for details
 # 09-20-2021 Joe Bauer: This is unique to the Barkal project
-dnf install poppler-utils
+yum install poppler-utils

@@ -7,11 +7,12 @@ $labelInfo = $this->setting('property_label_information');
 <?php foreach ($values as $term => $propertyData): ?>
     <div class="property">
         <dt>
-        <?php if ($propertyData['alternate_label']): ?>
-        <?php echo $escape($propertyData['alternate_label']); ?>
-        <?php else: ?>
-        <?php echo $escape($translate($propertyData['property']->label())); ?>
-        <?php endif; ?>
+        <?php
+            if ($propertyData['alternate_label']):
+                echo $escape($propertyData['alternate_label']);
+            else:
+                echo $escape($translate($propertyData['property']->label())); 
+            endif;?>
         <?php if ('term' === $labelInfo): ?>
         <span class="field-term">(<?php echo $escape($propertyData['property']->term()); ?>)</span>
         <?php elseif ('vocab' === $labelInfo): ?>
@@ -19,7 +20,8 @@ $labelInfo = $this->setting('property_label_information');
         <?php endif; ?>
         </dt>
         <div class="values">
-        <?php foreach ($propertyData['values'] as $value): ?>
+        <?php 
+        foreach ($propertyData['values'] as $value): ?>
             <?php
             $valueType = $value->type();
             $class = ['value'];
@@ -31,13 +33,41 @@ $labelInfo = $this->setting('property_label_information');
             }
             if (!$value->isPublic()) {
                 $class[] = 'private';
-            }
+            }   
             ?>
-            <dl class="<?php echo implode(' ', $class); ?>" lang="<?php echo $escape($value->lang()); ?>">
-                <?php if ($language = $value->lang()): ?>
-                <span class="language"><?php echo $language; ?></span>
-                <?php endif; ?>
-                <?php echo $value->asHtml(); ?>
+            <dl class="<?
+                echo implode(' ', $class); ?>" lang="<?php echo $escape($value->lang()); ?>">
+                <?php
+                // We want the transcription to be next to the image so build a table to display them adjacently
+                if ($term == 'bibo:transcriptOf') {
+                ?>
+                <div>
+                    <table id='transcription-table' class="transcription-table" style="border-collapse: unset;">
+                        <tr>
+                            <td class="transcription-text" style="line-height: 2;">
+                               <?php echo $value->asHtml(); ?>
+                            </td>
+                            <td class="transcription-img";">
+                                <?php echo $img; ?> 
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <style type="text/css">
+                    .resource.show .media-render > a:only-child {
+                        border: none;
+                    }
+                </style>
+                <?php   
+                } else {
+                    if ($language = $value->lang()) { ?>
+                        <span class="language">
+                            <?php echo $language; ?>
+                        </span>
+                    <?php };?> <!--close inner if -->
+                    <?php echo $value->asHtml();?>
+                    <?php } ?> <!-- close else-->
+                
             </dl>
         <?php endforeach; ?>
         </div>

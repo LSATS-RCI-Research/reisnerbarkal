@@ -37,8 +37,8 @@ $labelInfo = $this->setting('property_label_information');
             ?>
             <dl class="<?
                 echo implode(' ', $class); ?>" lang="<?php echo $escape($value->lang()); ?>">
-                <?php 
-                // We want the transcription to be next to the image so build a table to display them adjacent
+                <?php
+                // We want the transcription to be next to the image so build a table to display them adjacently
                 if ($term == 'bibo:transcriptOf') {
                 ?>
                 <div>
@@ -47,12 +47,17 @@ $labelInfo = $this->setting('property_label_information');
                             <td class="transcription-text" style="line-height: 2;">
                                <?php echo $value->asHtml(); ?>
                             </td>
-                            <td class="transcription-img">
+                            <td class="transcription-img";">
                                 <?php echo $img; ?> 
                             </td>
                         </tr>
                     </table>
                 </div>
+                <style type="text/css">
+                    .resource.show .media-render > a:only-child {
+                        border: none;
+                    }
+                </style>
                 <?php   
                 } else {
                     if ($language = $value->lang()) { ?>

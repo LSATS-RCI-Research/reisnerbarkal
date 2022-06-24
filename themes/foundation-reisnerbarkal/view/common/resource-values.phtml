@@ -54,9 +54,11 @@ $labelInfo = $this->setting('property_label_information');
                     </table>
                 </div>
                 <style type="text/css">
+                    /* Turning off the border and shadow at a higher level didn't work so a style tag was added */
                     .resource.show .media-render > a:only-child {
                         border: none;
-                    }
+                        -webkit-box-shadow: 0 0 0 0px rgb(255, 255, 255);
+                        box-shadow: 0 0 0 0px rgb(255, 255, 255);}
                 </style>
                 <?php   
                 } else {

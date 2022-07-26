@@ -69,6 +69,7 @@ $labelInfo = $this->setting('property_label_information');
                     <?php };?> <!--close inner if -->
                     <?php echo $value->asHtml();?>
                     <?php } ?> <!-- close else-->
+                
             </dl>
         <?php endforeach; ?>
         </div>
@@ -76,8 +77,9 @@ $labelInfo = $this->setting('property_label_information');
 <?php endforeach; ?>
 </dl>
 <script type="text/javascript">
-// get all properties on the page and move the transcript property to the top  
+// find all properties on the page and move the transcript property to the top of the page.   
 var elements = document.getElementsByClassName('property')
+
 for(const item of elements){
   if (item.innerText.includes('transcript of')){
     elements[0].prepend(item)

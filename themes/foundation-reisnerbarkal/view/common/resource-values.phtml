@@ -39,16 +39,16 @@ $labelInfo = $this->setting('property_label_information');
                 echo implode(' ', $class); ?>" lang="<?php echo $escape($value->lang()); ?>">
                 <?php
                 // We want the transcription to be next to the image so build a table to display them adjacently
-                if ($term == 'bibo:transcriptOf') {
+                if (1==1) {
                 ?>
                 <div>
                     <table id='transcription-table' class="transcription-table" style="border-collapse: unset;">
                         <tr>
-                            <td class="transcription-img" style="min-width: 500px;">
+                            <td class="transcription-img1" style="min-width: 500px;">
                                 <?php echo $img;?> 
                             </td>
-                            <td class="transcription-text" style="line-height: 2; min-width: 500px;">
-                               <?php echo $value->asHtml(); ?>
+                            <td class="transcription-img2" style="min-width: 700px;">
+                                <?php echo $img;?> 
                             </td>
                         </tr>
                     </table>
@@ -85,4 +85,9 @@ for(const item of elements){
     elements[0].prepend(item)
   }
 }
+var media_renders = document.getElementsByClassName('media-render')
+media_renders[1].hidden = true 
+media_renders[2].hidden = true
+var i_frames = document.getElementsByTagName('iframe')
+i_frames[1].style.height = '700px'
 </script>

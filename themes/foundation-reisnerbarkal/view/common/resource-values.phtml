@@ -3,6 +3,26 @@ $translate = $this->plugin('translate');
 $escape = $this->plugin('escapeHtml');
 $labelInfo = $this->setting('property_label_information');
 ?>
+<!-- Add in a table structure to show the image and its transcript pdf -->
+<div>
+    <table id='transcription-table' class="transcription-table" style="border-collapse: unset;">
+        <tr>
+            <td class="transcription-img1" style="min-width: 500px;">
+                <?php echo $img;?> 
+            </td>
+            <td class="transcription-img2" style="min-width: 550px;">
+                <?php echo $img;?> 
+            </td>
+        </tr>
+    </table>
+</div>
+<style type="text/css">
+    /* Turning off the border and shadow at a higher level didn't work so a style tag was added */
+    .resource.show .media-render > a:only-child {
+        border: none;
+        -webkit-box-shadow: 0 0 0 0px rgb(255, 255, 255);
+        box-shadow: 0 0 0 0px rgb(255, 255, 255);}
+</style>
 <dl>
 <?php foreach ($values as $term => $propertyData): ?>
     <div class="property">
@@ -20,6 +40,7 @@ $labelInfo = $this->setting('property_label_information');
         <?php endif; ?>
         </dt>
         <div class="values">
+
         <?php 
         foreach ($propertyData['values'] as $value): ?>
             <?php
@@ -38,37 +59,12 @@ $labelInfo = $this->setting('property_label_information');
             <dl class="<?
                 echo implode(' ', $class); ?>" lang="<?php echo $escape($value->lang()); ?>">
                 <?php
-                // We want the transcription to be next to the image so build a table to display them adjacently
-                if ($term == 'bibo:transcriptOf') {
-                ?>
-                <div>
-                    <table id='transcription-table' class="transcription-table" style="border-collapse: unset;">
-                        <tr>
-                            <td class="transcription-img" style="min-width: 500px;">
-                                <?php echo $img;?> 
-                            </td>
-                            <td class="transcription-text" style="line-height: 2; min-width: 500px;">
-                               <?php echo $value->asHtml(); ?>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <style type="text/css">
-                    /* Turning off the border and shadow at a higher level didn't work so a style tag was added */
-                    .resource.show .media-render > a:only-child {
-                        border: none;
-                        -webkit-box-shadow: 0 0 0 0px rgb(255, 255, 255);
-                        box-shadow: 0 0 0 0px rgb(255, 255, 255);}
-                </style>
-                <?php   
-                } else {
                     if ($language = $value->lang()) { ?>
                         <span class="language">
                             <?php echo $language; ?>
                         </span>
                     <?php };?> <!--close inner if -->
                     <?php echo $value->asHtml();?>
-                    <?php } ?> <!-- close else-->
                 
             </dl>
         <?php endforeach; ?>
@@ -77,12 +73,10 @@ $labelInfo = $this->setting('property_label_information');
 <?php endforeach; ?>
 </dl>
 <script type="text/javascript">
-// find all properties on the page and move the transcript property to the top of the page.   
-var elements = document.getElementsByClassName('property')
 
-for(const item of elements){
-  if (item.innerText.includes('transcript of')){
-    elements[0].prepend(item)
-  }
-}
+var media_renders = document.getElementsByClassName('media-render')
+media_renders[1].hidden = true 
+media_renders[2].hidden = true
+var i_frames = document.getElementsByTagName('iframe')
+i_frames[1].style.height = '700px'
 </script>

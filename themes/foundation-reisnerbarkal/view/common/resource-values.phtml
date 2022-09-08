@@ -3,26 +3,33 @@ $translate = $this->plugin('translate');
 $escape = $this->plugin('escapeHtml');
 $labelInfo = $this->setting('property_label_information');
 ?>
-<!-- Show the image and its transcript pdf within a table. The media
-embeds are doubled with the repeat materials removed later. -->
+<!-- Build a table to show the image and its transcript. The image is duplicated because it's difficult to separate the pdf from the base item media.
+Next add some table entries for the previous and next page areas. These are item properties that are moved with JS down below -->
 <div>
     <table id='transcription-table' class="transcription-table" style="border-collapse: unset;">
         <tr>
             <td class="transcription-img1" style="min-width: 500px;">
-                <?php echo $img;?> 
+                <?php echo $img;?>
             </td>
             <td class="transcription-img2" style="min-width: 550px;">
-                <?php echo $img;?> 
+                <?php echo $img;?>
+            </td>
+        </tr>
+        <tr>
+            <td id='previous-page'></td>
+            <td id='next-page' style="
+            text-align: right;">
             </td>
         </tr>
     </table>
 </div>
 <style type="text/css">
     /* Turning off the border and shadow at a higher level didn't work so a style tag was added */
-    .resource.show .media-render > a:only-child {
+   .resource.show .media-render > a:only-child {
         border: none;
         -webkit-box-shadow: 0 0 0 0px rgb(255, 255, 255);
         box-shadow: 0 0 0 0px rgb(255, 255, 255);}
+
 </style>
 <dl>
 <?php foreach ($values as $term => $propertyData): ?>
@@ -75,9 +82,42 @@ embeds are doubled with the repeat materials removed later. -->
 </dl>
 <script type="text/javascript">
 
-var media_renders = document.getElementsByClassName('media-render')
-media_renders[1].hidden = true 
-media_renders[2].hidden = true
-var i_frames = document.getElementsByTagName('iframe')
-i_frames[1].style.height = '700px'
+var media_renders = document.getElementsByClassName('media-render');
+if (media_renders !== undefined && media_renders !== null) {
+    media_renders[1].hidden = true;
+    media_renders[2].hidden = true;
+    var i_frames = document.getElementsByTagName('iframe');
+    if (i_frames !== undefined && i_frames !== null) {
+        i_frames[1].style.height = '700px';
+    }
+}
+// Provided the items on the page are in the correct order the page the following should work. 
+// The following is assumed:
+// props[0] = title
+// props[1] = description
+// props[2] = page start
+// props[3] = page end
+var props = document.getElementsByClassName('property');
+if (props !== undefined && props !== null){
+    var previousPage = document.getElementById('previous-page');
+    var nextPage = document.getElementById('next-page');
+    if (previousPage !== undefined && previousPage !== null){
+        previousPage.append(props[2])
+        previousPage.childNodes[0].childNodes[1].innerText = 'Previous Page'
+    }
+    else 
+        if (nextPage !== undefined && nextPage !== null){
+        nextPage.append(props[2])
+        nextPage.childNodes[1].childNodes[1].innerText = 'Next Page';
+    }
+    if (nextPage !== undefined && nextPage !== null){
+        nextPage.append(props[3])
+        nextPage.childNodes[1].childNodes[1].innerText = 'Next Page'
+    }
+    else 
+        if (previousPage !== undefined && previousPage !== null){
+        previousPage.append(props[2])
+        previousPage.childNodes[0].childNodes[1].innerText = 'Previous Page';
+    }
+}
 </script>

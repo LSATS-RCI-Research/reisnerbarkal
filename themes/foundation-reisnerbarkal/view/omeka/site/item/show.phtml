@@ -21,6 +21,7 @@ $showLayout = $this->themeSetting('show_layout');
     if ($embedMedia && $itemMedia):
         foreach ($itemMedia as $media):
             $img_string = $img_string . $media->render();
+            // $img_string = $img_string . $this->thumbnail($media, 'large');
         endforeach;
     endif;
     // Create variable to insert into the optional 'options field' of displayValues()
@@ -48,14 +49,7 @@ $showLayout = $this->themeSetting('show_layout');
     $property = $this->params()->fromQuery('property');
     $subjectValues = $item->displaySubjectValues($page, 25, $property);
     ?>
-    <?php if ($subjectValues): ?>
-    <div id="item-linked">
-        <h3><?php echo $translate('Linked resources'); ?></h3>
-        <?php echo $subjectValues; ?>
-    </div>
-    <?php endif; ?>
     
-    <?php $this->trigger('view.show.after'); ?>
 </div>
 
 </div>

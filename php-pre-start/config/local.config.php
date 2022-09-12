@@ -29,7 +29,7 @@ return [
     'service_manager' => [
         'aliases' => [
             'Omeka\File\Store' => 'Omeka\File\Store\Local',
-            'Omeka\File\Thumbnailer' => 'Omeka\File\Thumbnailer\Gd',
+            'Omeka\File\Thumbnailer' => 'Omeka\File\Thumbnailer\Imagick',
         ],
     ],
     'mail' => [

@@ -87,10 +87,10 @@ Next add some table entries for the previous and next page areas. These are item
 // Hide the extra images since two sets are brought in.
 var item_images1 = document.getElementsByClassName('transcription-img1')
 var item_images2 = document.getElementsByClassName('transcription-img2')
-if (item_images1 != null){
+if (item_images1[0].childElementCount >0){
     item_images1[0].childNodes[2].hidden = true;
 }
-if (item_images2 != null){
+if (item_images2[0].childElementCount>0) {
     item_images2[0].childNodes[1].hidden = true;
 }
 // Move the properties to the transcription-table above and change the text
@@ -106,13 +106,13 @@ if (pageStart != null){
 }
 // hide the grey box if there is no value by setting bGC to white
 else{
-    prevPage.style.backgroundColor = 'white'
+    prevPage.style.display = 'None'
 }
 if (pageEnd != null){
     nextPage.append(pageEnd)
     nextPage.childNodes[1].childNodes[1].innerText = 'Next Page'
 }
 else{
-    nextPage.style.backgroundColor = 'white'
+    nextPage.style.display = 'None'
 }
 </script>

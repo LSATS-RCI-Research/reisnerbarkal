@@ -105,13 +105,14 @@ if (pageStart != null){
     prevPage.childNodes[0].childNodes[1].innerText = 'Previous Page' 
 }
 // hide the grey box if there is no value by setting bGC to white
-else
+else{
     prevPage.style.backgroundColor = 'white'
-
+}
 if (pageEnd != null){
     nextPage.append(pageEnd)
     nextPage.childNodes[1].childNodes[1].innerText = 'Next Page'
 }
-else
+else{
     nextPage.style.backgroundColor = 'white'
+}
 </script>

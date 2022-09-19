@@ -33,7 +33,10 @@ Next add some table entries for the previous and next page areas. These are item
 </style>
 <dl>
 <?php foreach ($values as $term => $propertyData): ?>
-    <div class="property">
+    <?php
+    // Add IDs to the html tags so they can be found directly later.
+        $propertyLabel = preg_replace('/(\w+:)(?=\w)/','',$term); ?>
+    <div class="property" id=<?php echo $propertyLabel ?>>
         <dt>
         <?php
             if ($propertyData['alternate_label']):
@@ -81,17 +84,7 @@ Next add some table entries for the previous and next page areas. These are item
 <?php endforeach; ?>
 </dl>
 <script type="text/javascript">
-
-// var media_renders = document.getElementsByClassName('media-render');
-// if (media_renders != null && media_renders.length !== 0) {
-//     console.log('null check fails')
-//     media_renders[1].hidden = true;
-//     media_renders[2].hidden = true;
-//     var i_frames = document.getElementsByTagName('iframe');
-//     if (i_frames != null) {
-//         i_frames[1].style.height = '700px';
-//     }
-// }
+// Hide the extra images since two sets are brought in.
 var item_images1 = document.getElementsByClassName('transcription-img1')
 var item_images2 = document.getElementsByClassName('transcription-img2')
 if (item_images1 != null){
@@ -100,35 +93,25 @@ if (item_images1 != null){
 if (item_images2 != null){
     item_images2[0].childNodes[1].hidden = true;
 }
-// Provided the items on the page are in the correct order the page the following should work. 
-// The following is assumed:
-// props[0] = title
-// props[1] = description
-// props[2] = page start
-// props[3] = page end
-// Null checking is for the first and last pagess
-var props = document.getElementsByClassName('property');
-if (props != undefined && props != null){
-    var previousPage = document.getElementById('previous-page');
-    var nextPage = document.getElementById('next-page');
+// Move the properties to the transcription-table above and change the text
+var prevPage = document.getElementById('previous-page')
+var nextPage = document.getElementById('next-page')
+var pageStart = document.getElementById('pageStart')
+var pageEnd = document.getElementById('pageEnd')
 
-    if (previousPage != null){
-        previousPage.append(props[2])
-        previousPage.childNodes[0].childNodes[1].innerText = 'Previous Page'
-    }
-    else 
-        if (nextPage != null){
-        nextPage.append(props[2])
-        nextPage.childNodes[1].childNodes[1].innerText = 'Next Page';
-    }
-    if (nextPage != null){
-        nextPage.append(props[3])
-        nextPage.childNodes[1].childNodes[1].innerText = 'Next Page'
-    }
-    else 
-        if (previousPage != null){
-        previousPage.append(props[2])
-        previousPage.childNodes[0].childNodes[1].innerText = 'Previous Page';
-    }
+if (pageStart != null){
+    prevPage.append(pageStart)
+    //T he text is buried so had to resort to childNodes
+    prevPage.childNodes[0].childNodes[1].innerText = 'Previous Page' 
 }
+// hide the grey box if there is no value by setting bGC to white
+else
+    prevPage.style.backgroundColor = 'white'
+
+if (pageEnd != null){
+    nextPage.append(pageEnd)
+    nextPage.childNodes[1].childNodes[1].innerText = 'Next Page'
+}
+else
+    nextPage.style.backgroundColor = 'white'
 </script>

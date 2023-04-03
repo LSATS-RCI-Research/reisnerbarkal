@@ -102,7 +102,7 @@ var pageEnd = document.getElementById('pageEnd')
 if (pageStart != null){
     prevPage.append(pageStart)
     //T he text is buried so had to resort to childNodes
-    prevPage.childNodes[0].childNodes[1].innerText = 'Previous Page' 
+    prevPage.childNodes[0].childNodes[1].innerText = 'Previous' 
 }
 // hide the grey box if there is no value by setting bGC to white
 else{
@@ -110,7 +110,7 @@ else{
 }
 if (pageEnd != null){
     nextPage.append(pageEnd)
-    nextPage.childNodes[1].childNodes[1].innerText = 'Next Page'
+    nextPage.childNodes[1].childNodes[1].innerText = 'Next'
 }
 else{
     nextPage.style.display = 'None'

@@ -20,8 +20,8 @@ $showLayout = $this->themeSetting('show_layout');
     $img_string = '';
     if ($embedMedia && $itemMedia):
         foreach ($itemMedia as $media):
-            // $img_string = $img_string . $media->render();
-            $img_string = $img_string . $this->thumbnail($media, 'large');
+            $img_string = $img_string . $media->render();
+            //$img_string = $img_string . $this->thumbnail($media, 'large');
         endforeach;
     endif;
     // Create variable to insert into the optional 'options field' of displayValues()

@@ -4,7 +4,7 @@
 # https://catalog.redhat.com/software/containers/ubi8/php-73/5d400891bed8bd38099104e0?gti-tabs=unauthenticated
 
 MOD_ROOT='/opt/app-root/src/php-pre-start'
-APP_ROOT='/opt/app-root/src/'
+APP_ROOT='/opt/app-root/src'
 # 7-31-2023 Joe Bauer: Seeing if changing the path fixes a pod crash loop; it was APP_ROOT='/opt/app-root/src/omeka-s'
 
 mv -v $MOD_ROOT/config/local.config.php $APP_ROOT/config/local.config.php
